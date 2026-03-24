@@ -219,7 +219,20 @@
     color: var(--ink);
   }
 
+  .item-variants {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
+  .variant {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
   /* ─── Tags ─── */
   .tag {
     display: inline-block;
@@ -305,26 +318,35 @@
 </div>
 
 
-<!-- BRUNCH -->
+<!-- BREAKFAST -->
 <section class="menu-section">
   <div class="section-header">
     <div class="section-icon">🍳</div>
     <div>
-      <div class="section-title">Brunch</div>
-      <div class="section-subtitle">All day until close</div>
+      <div class="section-title">Breakfast</div>
     </div>
   </div>
 
 
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">The Big Back</div>
-      <div class="item-desc">A sandwich between two halves of a glazed donut</div>
-      <span class="tag tag--popular">Fan Favorite</span>
+<div class="item">
+  <div class="item-info">
+    <div class="item-name">Omelette/Quesadilla/Wrap</div>
+    <div class="item-desc">Two eggs, cheddar, american, and colby jack cheese</div>
+    <div class="item-variants">
+      <div class="variant"><span>Classic</span><span>$?</span></div>
+      <div class="variant"><span>Steak</span><span>$?</span></div>
+      <div class="variant"><span>Ground Sausage</span><span>$?</span></div>
+      <div class="variant"><span>Smoked Sausage</span><span>$?</span></div>
+      <div class="variant"><span>Ham</span><span>$?</span></div>
+      <div class="variant"><span>Pico</span><span>$?</span></div>
+      <div class="variant"><span>Denver (Ham, Onions, Bell Peppers)</span><span>$?</span></div>
+      <div class="variant"><span>Rita Ranchero (Red Chili)</span><span>$?</span></div>
+      <div class="variant"><span>Pueblo Verde (Green Chili)</span><span>$?</span></div>
+      <div class="variant"><span>Philly (Steak, Onions, Bell Peppers)</span><span>$?</span></div>
+      <div class="variant"><span>Kansas City (BBQ Steak, Onions)</span><span>$?</span></div>
     </div>
-    <div class="item-price">$15</div>
   </div>
-
+</div>
 
   <div class="item">
     <div class="item-info">
@@ -352,7 +374,6 @@
     </div>
     <div class="item-price">$12</div>
   </div>
-
 </section>
 
 <!-- BURGERS -->
@@ -394,16 +415,7 @@
   </div>
 
 
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Patty Melt</div>
-      <div class="item-desc">Beef patty with cheese over toast</div>
-    <div class="item-price">$15</div>
-  </div>
-
-
-<hr class="section-divider">
-
+</section>
 
 <!-- SIDES & DRINKS -->
 <section class="menu-section">
