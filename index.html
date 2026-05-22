@@ -111,27 +111,6 @@
     box-shadow: 3px 3px 0 var(--ink);
   }
 
-  /* nav order-online button (external link) */
-  .order-link {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-weight: 700;
-    font-size: 0.82rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--ink);
-    background: var(--mustard);
-    border: 2px solid var(--ink);
-    padding: 9px 16px;
-    border-radius: 7px;
-    cursor: pointer;
-    text-decoration: none;
-    white-space: nowrap;
-    box-shadow: 3px 3px 0 var(--ink);
-    transition: transform .12s ease, box-shadow .12s ease;
-  }
-  .order-link:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-  .order-link .cart { margin-right: 5px; }
-
   /* ---------- PAGE SYSTEM ---------- */
   main { position: relative; z-index: 2; }
   .page { display: none; }
@@ -153,9 +132,9 @@
     position: relative;
   }
 
-  /* home page only — plain white hero */
+  /* home page only — plain cream hero */
   #home .hero {
-    background: #ffffff;
+    background: var(--cream);
   }
   #home .hero .hero-script { color: var(--ink); }
 
@@ -741,7 +720,7 @@
       <button class="tab"        data-tab="menu"   onclick="go('menu')">Full Menu</button>
       <button class="tab"        data-tab="daily"  onclick="go('daily')">Today's Board</button>
       <button class="tab"        data-tab="events" onclick="go('events')">Events</button>
-      <button class="order-link" onclick="go('order')"><span class="cart">&#128722;</span>Order Online</button>
+      <button class="tab"        data-tab="order"  onclick="go('order')">Order Online</button>
     </nav>
   </div>
 </header>
@@ -766,6 +745,7 @@
         <span>Fresh-cut fries</span>
         <span>Gourmet Burgers</span>
         <span>Hand-breaded tenderloins</span>
+        <span>Chicken Sandwiches</span>
         <span>Novelty Flapjack Stacks</span>
         <span>Doughnut breakfast sandwiches</span>
         <span>Daily chalkboard specials</span>
@@ -773,6 +753,7 @@
         <span>Fresh-cut fries</span>
         <span>Gourmet Burgers</span>
         <span>Hand-breaded tenderloins</span>
+        <span>Chicken Sandwiches</span>
         <span>Novelty Flapjack Stacks</span>
         <span>Doughnut breakfast sandwiches</span>
         <span>Daily chalkboard specials</span>
@@ -1374,7 +1355,7 @@
     <button class="btn btn-yellow" onclick="go('order')">&#128722; Order Online</button>
   </div>
   <div class="socials">
-    <span>Facebook</span>
+    <a href="https://facebook.com/61590594410016" target="_blank" rel="noopener">Facebook</a>
   </div>
   <p style="margin-top:16px;">&copy; 2026 Big Back Jacks LLC. All rights reserved.</p>
 </footer>
