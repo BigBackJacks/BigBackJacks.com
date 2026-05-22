@@ -1,484 +1,1103 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Big Back Jack's — Menu</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Big Back Jacks &mdash; Big Plates, No Apologies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Shrikhand&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --ink: #1a1714;
-    --cream: #faf8f5;
-    --warm: #f0ebe4;
-    --mustard: #d4a033;
-    --mustard-light: #f5e6c4;
-    --rust: #c45a3c;
-    --sage: #7a8a6e;
-    --muted: #8a837a;
-    --divider: #e4ddd4;
+    --cream:    #f3e7c8;
+    --cream-dk: #e9d6a8;
+    --red:      #c2371f;
+    --red-dk:   #95271266;
+    --mustard:  #e6a234;
+    --teal:     #1f6f63;
+    --ink:      #211a14;
+    --board:    #243029;
+    --chalk:    #f1ead8;
+    --shadow:   #211a14;
   }
-
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-
-  html { background: var(--cream); }
-
+  html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
-    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
     background: var(--cream);
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 0 0 60px;
+    color: var(--ink);
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
-
-  /* ─── Hero ─── */
-  .hero {
-    position: relative;
-    padding: 48px 28px 40px;
-    text-align: center;
-    overflow: hidden;
-    background: var(--ink);
-    color: var(--cream);
-  }
-
-
-  .hero::before {
-    content: '';
-    position: absolute;
+  /* halftone + grain atmosphere */
+  body::before {
+    content: "";
+    position: fixed;
     inset: 0;
-    background:
-      radial-gradient(circle at 20% 80%, rgba(212,160,51,0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(196,90,60,0.1) 0%, transparent 50%);
+    background-image: radial-gradient(var(--ink) 1px, transparent 1.4px);
+    background-size: 26px 26px;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 1;
   }
 
+  ::selection { background: var(--mustard); color: var(--ink); }
 
-  .hero-badge {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 3px;
+  /* ---------- NAV ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--red);
+    border-bottom: 5px solid var(--ink);
+    box-shadow: 0 6px 0 var(--red-dk);
+  }
+
+  .nav-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 22px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    font-family: 'Alfa Slab One', serif;
+    color: var(--cream);
+    font-size: 1.45rem;
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 0 var(--ink);
+    cursor: pointer;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .brand span { color: var(--mustard); }
+
+  nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
     text-transform: uppercase;
-    color: var(--mustard);
-    border: 1px solid rgba(212,160,51,0.4);
-    padding: 6px 16px;
-    border-radius: 100px;
-    margin-bottom: 20px;
+    letter-spacing: 1px;
+    color: var(--cream);
+    background: transparent;
+    border: 2px solid transparent;
+    padding: 9px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: transform .12s ease, background .15s ease, color .15s ease;
+  }
+  .tab:hover { transform: translateY(-2px) rotate(-1.5deg); background: #ffffff22; }
+  .tab.active {
+    background: var(--mustard);
+    color: var(--ink);
+    border-color: var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  /* ---------- PAGE SYSTEM ---------- */
+  main { position: relative; z-index: 2; }
+  .page { display: none; }
+  .page.show { display: block; animation: rise .45s cubic-bezier(.2,.7,.2,1); }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 22px; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    background:
+      repeating-linear-gradient(45deg, #c2371f 0 38px, #b03019 38px 76px);
+    border-bottom: 5px solid var(--ink);
+    padding: 60px 22px 80px;
+    text-align: center;
     position: relative;
   }
 
+  .badge {
+    display: inline-block;
+    background: var(--mustard);
+    color: var(--ink);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.72rem;
+    padding: 7px 16px;
+    border: 2px solid var(--ink);
+    border-radius: 40px;
+    transform: rotate(-2deg);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
 
   .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 38px;
-    line-height: 1.05;
-    letter-spacing: -0.5px;
-    position: relative;
-    margin-bottom: 10px;
+    font-family: 'Alfa Slab One', serif;
+    color: var(--cream);
+    line-height: 0.92;
+    margin: 26px 0 8px;
+    font-size: clamp(3rem, 11vw, 7.3rem);
+    text-shadow: 5px 5px 0 var(--ink);
+  }
+  .hero h1 .stack { display: block; }
+  .hero h1 .jacks { color: var(--mustard); }
+
+  .hero-script {
+    font-family: 'Caveat', cursive;
+    color: var(--cream);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    margin-top: 4px;
+    transform: rotate(-2deg);
   }
 
-
-  .hero-tagline {
-    font-size: 14px;
-    color: rgba(250,248,245,0.55);
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    position: relative;
-  }
-
-
-  /* ─── Notice bar ─── */
-  .notice {
+  .cta-row {
+    margin-top: 34px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: var(--mustard-light);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink);
-    text-align: center;
-  }
-
-
-  .notice-dot {
-    width: 6px; height: 6px;
-    background: var(--sage);
-    border-radius: 50%;
-    flex-shrink: 0;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-
-  /* ─── Section ─── */
-  .menu-section {
-    padding: 32px 28px 0;
-    opacity: 0;
-    transform: translateY(16px);
-    animation: fadeUp 0.5s ease forwards;
-  }
-
-
-  .menu-section:nth-child(3) { animation-delay: 0.1s; }
-  .menu-section:nth-child(4) { animation-delay: 0.2s; }
-  .menu-section:nth-child(5) { animation-delay: 0.3s; }
-  .menu-section:nth-child(6) { animation-delay: 0.4s; }
-
-
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-
-  .section-header {
-    display: flex;
-    align-items: center;
     gap: 14px;
-    margin-bottom: 20px;
-  }
-
-
-  .section-icon {
-    font-size: 20px;
-    width: 40px; height: 40px;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    background: var(--warm);
-    border-radius: 12px;
-    flex-shrink: 0;
+    flex-wrap: wrap;
   }
 
-
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    letter-spacing: -0.3px;
-  }
-
-
-  .section-subtitle {
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 500;
-    letter-spacing: 0.5px;
+  .btn {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    padding: 14px 26px;
+    border: 3px solid var(--ink);
+    border-radius: 9px;
+    cursor: pointer;
+    box-shadow: 5px 5px 0 var(--ink);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+  .btn-yellow { background: var(--mustard); color: var(--ink); }
+  .btn-cream  { background: var(--cream); color: var(--ink); }
+
+  /* ---------- SECTION SHELL ---------- */
+  .section { padding: 70px 0; }
+  .section.alt { background: var(--cream-dk); border-top: 4px dashed var(--ink); border-bottom: 4px dashed var(--ink); }
+
+  .kicker {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.78rem;
+    color: var(--red);
   }
 
+  .h2 {
+    font-family: 'Shrikhand', cursive;
+    font-size: clamp(2.1rem, 6vw, 3.6rem);
+    line-height: 1;
+    margin: 10px 0 8px;
+    color: var(--ink);
+  }
 
-  /* ─── Menu Item ─── */
+  .lead { font-size: 1.05rem; max-width: 620px; line-height: 1.55; }
+
+  /* ---------- ABOUT GRID ---------- */
+  .about {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .about-card {
+    background: var(--teal);
+    border: 4px solid var(--ink);
+    border-radius: 14px;
+    padding: 34px;
+    color: var(--cream);
+    box-shadow: 9px 9px 0 var(--ink);
+    transform: rotate(1.5deg);
+  }
+  .about-card h3 {
+    font-family: 'Alfa Slab One', serif;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--mustard);
+  }
+  .about-card p { line-height: 1.55; }
+
+  .stat-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 26px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--cream);
+    border: 3px solid var(--ink);
+    border-radius: 10px;
+    padding: 14px 18px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .stat b {
+    font-family: 'Alfa Slab One', serif;
+    display: block;
+    font-size: 1.7rem;
+    color: var(--red);
+    line-height: 1;
+  }
+  .stat span { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ---------- FEATURE CARDS ---------- */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 36px;
+  }
+  .feature {
+    background: var(--cream);
+    border: 4px solid var(--ink);
+    border-radius: 12px;
+    padding: 26px;
+    box-shadow: 6px 6px 0 var(--ink);
+    transition: transform .14s ease;
+  }
+  .feature:hover { transform: translateY(-5px) rotate(-1deg); }
+  .feature .emoji { font-size: 2.4rem; }
+  .feature h4 {
+    font-family: 'Alfa Slab One', serif;
+    font-size: 1.15rem;
+    margin: 10px 0 6px;
+  }
+  .feature p { font-size: 0.94rem; line-height: 1.5; }
+
+  /* ---------- FULL MENU ---------- */
+  .menu-cat { margin-top: 46px; }
+  .menu-cat:first-of-type { margin-top: 28px; }
+
+  .cat-head {
+    display: inline-block;
+    font-family: 'Alfa Slab One', serif;
+    background: var(--ink);
+    color: var(--mustard);
+    font-size: 1.3rem;
+    padding: 8px 20px;
+    border-radius: 8px;
+    transform: rotate(-1.5deg);
+  }
+
+  .menu-list { margin-top: 22px; }
+
   .item {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--divider);
-    gap: 16px;
+    align-items: baseline;
+    gap: 10px;
+    padding: 14px 4px;
+    border-bottom: 2px dotted #211a1455;
   }
-
-
-  .item:last-child { border-bottom: none; }
-
-
-  .item-info { flex: 1; }
-
-
-  .item-name {
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 1.3;
-    margin-bottom: 3px;
-  }
-
-
-  .item-desc {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.45;
-    font-weight: 400;
-  }
-
-
-  .item-price {
-    font-weight: 700;
-    font-size: 15px;
-    white-space: nowrap;
-    padding-top: 2px;
-    color: var(--ink);
-  }
-
-  .item-variants {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-  .variant {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  color: var(--muted);
-  font-weight: 500;
-}
-  /* ─── Tags ─── */
-  .tag {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.8px;
+  .item-name { font-weight: 700; font-size: 1.06rem; white-space: nowrap; }
+  .item-tag {
+    font-size: 0.62rem;
     text-transform: uppercase;
-    padding: 3px 8px;
+    letter-spacing: 1px;
+    background: var(--red);
+    color: var(--cream);
+    padding: 2px 7px;
+    border-radius: 20px;
+    transform: translateY(-2px);
+  }
+  .item-tag.veg { background: var(--teal); }
+  .dots {
+    flex: 1;
+    border-bottom: 2px dotted #211a1466;
+    transform: translateY(-4px);
+  }
+  .item-price {
+    font-family: 'Alfa Slab One', serif;
+    color: var(--red);
+    font-size: 1.05rem;
+  }
+  .item-desc {
+    font-size: 0.88rem;
+    color: #4a3f33;
+    width: 100%;
+    margin-top: 3px;
+    line-height: 1.45;
+  }
+
+  .cat-note {
+    font-size: 0.86rem;
+    color: #4a3f33;
+    margin-top: 12px;
+    font-style: italic;
+    max-width: 640px;
+    line-height: 1.45;
+  }
+
+  .mods {
+    background: var(--cream-dk);
+    border: 3px solid var(--ink);
+    border-radius: 11px;
+    padding: 18px 22px;
+    margin-top: 16px;
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+  .mods-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .mods h5 {
+    font-family: 'Alfa Slab One', serif;
+    font-size: 0.98rem;
+    margin-bottom: 8px;
+    color: var(--red);
+  }
+  .mods ul { list-style: none; }
+  .mods li { font-size: 0.9rem; padding: 4px 0; line-height: 1.4; }
+  .mods li b { font-weight: 700; }
+  @media (max-width: 640px) { .mods-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- DAILY CHALKBOARD ---------- */
+  .board {
+    background: var(--board);
+    border: 12px solid #6b4a2c;
+    border-radius: 10px;
+    box-shadow: inset 0 0 70px #00000088, 8px 8px 0 var(--ink);
+    padding: 46px 38px;
+    color: #f1ead8;
+    position: relative;
+  }
+  .board::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(#ffffff10 1px, transparent 2px);
+    background-size: 18px 18px;
+    pointer-events: none;
     border-radius: 4px;
-    margin-top: 6px;
   }
-
-
-  .tag--popular {
-    background: var(--mustard-light);
-    color: #9a7520;
-  }
-
-
-  .tag--spicy {
-    background: #fce8e3;
-    color: var(--rust);
-  }
-
-
-  .tag--vegetarian {
-    background: #e5eddf;
-    color: #4a6340;
-  }
-
-
-  /* ─── Divider ─── */
-  .section-divider {
-    margin: 8px 28px 0;
-    border: none;
-    height: 1px;
-    background: var(--divider);
-  }
-
-
-  /* ─── Footer ─── */
-  .footer {
+  .board-date {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    color: var(--mustard);
     text-align: center;
-    padding: 40px 28px 0;
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.7;
   }
-
-
-  .footer-logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 16px;
-    color: var(--ink);
+  .board-title {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    text-align: center;
+    line-height: 1;
     margin-bottom: 6px;
   }
+  .board-rule {
+    width: 160px;
+    height: 3px;
+    background: var(--mustard);
+    margin: 12px auto 30px;
+    border-radius: 3px;
+  }
+  .board-item {
+    font-family: 'Caveat', cursive;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 1.7rem;
+    padding: 9px 0;
+  }
+  .board-item .bn { white-space: nowrap; }
+  .board-item .bd {
+    flex: 1;
+    border-bottom: 2px dotted #ffffff44;
+    transform: translateY(-5px);
+  }
+  .board-item .bp { color: var(--mustard); white-space: nowrap; }
+  .board-note {
+    font-family: 'Caveat', cursive;
+    font-size: 1.35rem;
+    text-align: center;
+    margin-top: 26px;
+    color: #f1ead8cc;
+  }
+  .soldout { text-decoration: line-through; opacity: 0.45; }
 
+  .daily-strip {
+    display: flex;
+    gap: 14px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  .day-pill {
+    background: var(--cream);
+    border: 3px solid var(--ink);
+    border-radius: 30px;
+    padding: 9px 18px;
+    font-weight: 700;
+    font-size: 0.86rem;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .day-pill b { color: var(--red); }
 
-  .socials {
-    margin-top: 12px;
-    font-weight: 600;
-    font-size: 13px;
-    color: var(--ink);
-    letter-spacing: 0.3px;
+  /* ---------- EVENTS ---------- */
+  .event {
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    gap: 22px;
+    align-items: center;
+    background: var(--cream);
+    border: 4px solid var(--ink);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 18px;
+    box-shadow: 6px 6px 0 var(--ink);
+    transition: transform .13s ease;
+  }
+  .event:hover { transform: translateX(6px); }
+  .ev-date {
+    background: var(--red);
+    color: var(--cream);
+    border: 3px solid var(--ink);
+    border-radius: 9px;
+    text-align: center;
+    padding: 10px 4px;
+  }
+  .ev-date .m { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px; }
+  .ev-date .d { font-family: 'Alfa Slab One', serif; font-size: 2rem; line-height: 1; }
+  .ev-info h4 {
+    font-family: 'Alfa Slab One', serif;
+    font-size: 1.2rem;
+  }
+  .ev-info p { font-size: 0.9rem; color: #4a3f33; margin-top: 3px; }
+  .ev-status {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.74rem;
+    padding: 8px 14px;
+    border: 2px solid var(--ink);
+    border-radius: 30px;
+    white-space: nowrap;
+  }
+  .ev-status.go    { background: var(--teal); color: var(--cream); }
+  .ev-status.soon  { background: var(--mustard); color: var(--ink); }
+  .ev-status.full  { background: var(--ink); color: var(--cream); }
+
+  .book-bar {
+    margin-top: 40px;
+    background: var(--teal);
+    border: 4px solid var(--ink);
+    border-radius: 14px;
+    box-shadow: 8px 8px 0 var(--ink);
+    padding: 32px;
+    text-align: center;
+    color: var(--cream);
+  }
+  .book-bar h3 {
+    font-family: 'Shrikhand', cursive;
+    font-size: 1.9rem;
+    margin-bottom: 8px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    border-top: 5px solid var(--mustard);
+    padding: 40px 22px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  footer .fbrand {
+    font-family: 'Alfa Slab One', serif;
+    font-size: 1.6rem;
+    color: var(--mustard);
+  }
+  footer p { font-size: 0.88rem; margin-top: 8px; color: #f3e7c8aa; }
+  .socials { margin-top: 14px; display: flex; gap: 18px; justify-content: center; }
+  .socials span { font-weight: 700; cursor: pointer; }
+  .socials span:hover { color: var(--mustard); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 820px) {
+    .about { grid-template-columns: 1fr; }
+    .about-card { transform: rotate(0); }
+    .feature-grid { grid-template-columns: 1fr; }
+    .event { grid-template-columns: 80px 1fr; }
+    .ev-status { grid-column: 2; justify-self: start; }
+    .nav-inner { justify-content: center; }
   }
 </style>
 </head>
 <body>
 
-
-<!-- Hero -->
-<header class="hero">
-  <div class="hero-badge">Food Truck</div>
-  <h1>Big Back<br>Jack's</h1>
-  <p class="hero-tagline">Brunch & Burgers</p>
+<!-- ================= NAV ================= -->
+<header>
+  <div class="nav-inner">
+    <div class="brand" onclick="go('home')">BIG BACK <span>JACKS</span></div>
+    <nav>
+      <button class="tab active" data-tab="home"   onclick="go('home')">Home</button>
+      <button class="tab"        data-tab="menu"   onclick="go('menu')">Full Menu</button>
+      <button class="tab"        data-tab="daily"  onclick="go('daily')">Today's Board</button>
+      <button class="tab"        data-tab="events" onclick="go('events')">Events</button>
+    </nav>
+  </div>
 </header>
 
+<main>
 
-<!-- Notice -->
-<div class="notice">
-  <span class="notice-dot"></span>
-  Serving 10 AM – 3 PM · Cash & Card
-</div>
-
-
-<!-- BREAKFAST -->
-<section class="menu-section">
-  <div class="section-header">
-    <div class="section-icon">🍳</div>
-    <div>
-      <div class="section-title">Breakfast</div>
+  <!-- ================= HOME ================= -->
+  <section class="page show" id="home">
+    <div class="hero">
+      <span class="badge">Rolling since 2021 &bull; Smash burgers &amp; loaded everything</span>
+      <h1>
+        <span class="stack">BIG BACK</span>
+        <span class="stack jacks">JACKS</span>
+      </h1>
+      <div class="hero-script">"come hungry, leave horizontal"</div>
+      <div class="cta-row">
+        <button class="btn btn-yellow" onclick="go('daily')">See Today's Board</button>
+        <button class="btn btn-cream" onclick="go('events')">Find The Truck</button>
+      </div>
     </div>
-  </div>
 
-
-<div class="item">
-  <div class="item-info">
-    <div class="item-name">Omelette con Tortilla</div>
-    <div class="item-desc">An omelette with cheddar, american, and colby jack cheese, folded in your choice of a tortilla wrap or grilled quesadilla. Served with tater tots</div>
-    <div class="item-variants">
-      <div class="variant"><span>Classic</span><span>$10</span></div>
-      <div class="variant"><span>Ground Sausage</span><span>$12</span></div>
-      <div class="variant"><span>Smoked Sausage</span><span>$12</span></div>
-      <div class="variant"><span>Ham</span><span>$12</span></div>
-      <div class="variant"><span>Steak</span><span>$13</span></div>
-      <div class="variant"><span>Pico (Tomatoes, Onions, Peppers)</span><span>$12</span></div>       
-      <div class="variant"><span>Ranchero (Red Chile)</span><span>$12</span></div>
-      <div class="variant"><span>Pueblo Verde (Green Chile)</span><span>$12</span></div>
-      <div class="variant"><span>Denver (Ham, Onions, Peppers)</span><span>$14</span></div>
-      <div class="variant"><span>Philly (Steak, Onions, Peppers)</span><span>$15</span></div>
-      <div class="variant"><span>Kansas City (BBQ Steak, Onions)</span><span>$15</span></div>
+    <div class="section">
+      <div class="wrap about">
+        <div>
+          <div class="kicker">Who We Are</div>
+          <h2 class="h2">A truck with one rule: no small plates.</h2>
+          <p class="lead">Big Back Jacks started with a beat-up grill, a borrowed trailer, and a deep belief that nobody should leave a food truck still hungry. We griddle every burger to order, hand-cut our fries daily, and pile it all higher than is strictly reasonable.</p>
+          <div class="stat-row">
+            <div class="stat"><b>40k+</b><span>Burgers Flipped</span></div>
+            <div class="stat"><b>12</b><span>Cities Visited</span></div>
+            <div class="stat"><b>4.9&#9733;</b><span>Street Rating</span></div>
+          </div>
+        </div>
+        <div class="about-card">
+          <h3>The Big Back Promise</h3>
+          <p>Every order comes hot, heavy, and wrapped in butcher paper. If you can finish the Triple Stack Monster in one sitting, your next milkshake is on the house. Fair warning &mdash; most people can't.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Jack</div>
-      <div class="item-desc">A sandwich between syrupy buttermilk pancakes</div>
+    <div class="section alt">
+      <div class="wrap">
+        <div class="kicker">Why Folks Chase The Truck</div>
+        <h2 class="h2">Big flavor, bigger portions.</h2>
+        <div class="feature-grid">
+          <div class="feature">
+            <div class="emoji">&#127828;</div>
+            <h4>Smashed To Order</h4>
+            <p>Fresh beef, screaming-hot flat top, crispy lacy edges. Never pre-cooked, never sitting around.</p>
+          </div>
+          <div class="feature">
+            <div class="emoji">&#127839;</div>
+            <h4>Loaded Everything</h4>
+            <p>Fries, tots, mac &mdash; if it can be topped, we top it past the point of good sense.</p>
+          </div>
+          <div class="feature">
+            <div class="emoji">&#128184;</div>
+            <h4>Honest Prices</h4>
+            <p>Street food prices for a full meal. Bring a friend, bring an appetite.</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="item-price">$12.50</div>
-  </div>
 
-
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Bunny</div>
-      <div class="item-desc">A sandwich between two buns, with sauce</div>
-      <span class="tag tag--spicy">Spicy</span>
+    <div class="section">
+      <div class="wrap" style="text-align:center;">
+        <div class="kicker">Hungry Yet?</div>
+        <h2 class="h2">Pick your next move.</h2>
+        <div class="cta-row" style="margin-top:24px;">
+          <button class="btn btn-yellow" onclick="go('menu')">Browse The Full Menu</button>
+          <button class="btn btn-cream" onclick="go('events')">See Where We'll Be</button>
+        </div>
+      </div>
     </div>
-    <div class="item-price">$10</div>
-  </div>
+  </section>
 
-
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Short Stack</div>
-      <div class="item-desc">A stack of three buttermilk pancakes</div>
+  <!-- ================= FULL MENU ================= -->
+  <section class="page" id="menu">
+    <div class="hero" style="padding:48px 22px 56px;">
+      <span class="badge">The Whole Lineup</span>
+      <h1 style="font-size:clamp(2.6rem,9vw,5rem);">FULL MENU</h1>
+      <div class="hero-script">everything we cook, all in one place</div>
     </div>
-    <div class="item-price">$12</div>
-  </div>
-</section>
 
-<!-- BURGERS -->
-<section class="menu-section">
-  <div class="section-header">
-    <div class="section-icon">🍔</div>
-    <div>
-      <div class="section-title">Burgers</div>
-      <div class="section-subtitle">Served with seasoned fries</div>
+    <div class="section">
+      <div class="wrap">
+
+        <div class="menu-cat">
+          <span class="cat-head">&#127859; Brunch</span>
+          <p class="cat-note">All brunch items served with tater tots. Brunch Basket add-on available.</p>
+          <div class="menu-list">
+            <div class="item">
+              <span class="item-name">Brunch Sandwich</span>
+              <span class="item-tag">Build Your Own</span>
+              <span class="item-desc">Choice of meat, over-medium egg, and cheese (American or cheddar). Default sauce: mayo &amp; brown mustard, or BBQ. Pick your bread and meat below.</span>
+            </div>
+          </div>
+          <div class="mods">
+            <div class="mods-grid">
+              <div>
+                <h5>Bread Style</h5>
+                <ul>
+                  <li><b>Bunnies</b> &mdash; hamburger bun (with listed sauce)</li>
+                  <li><b>Jack's</b> &mdash; flapjacks (honey butter or hot honey)</li>
+                  <li><b>Big Backs</b> &mdash; glazed doughnut (no sauce)</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Meat</h5>
+                <ul>
+                  <li><b>Pork Chop</b> &mdash; 4oz grilled pork loin chop</li>
+                  <li><b>Sausage Patty</b> &mdash; 3oz patty</li>
+                  <li><b>Bacon</b> &mdash; 2 slices</li>
+                  <li><b>Ham</b> &mdash; ham slice</li>
+                  <li><b>Smoked Sausage Link</b> &mdash; grilled</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="menu-list">
+            <div class="item">
+              <span class="item-name">Chicken Jack</span>
+              <span class="item-desc">Crispy chicken breast served with two flapjacks. Choice of honey butter or hot honey.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">BLT</span>
+              <span class="item-desc">Double-decker. Bacon, lettuce, tomato, mayo on sourdough.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-cat">
+          <span class="cat-head">&#127790; Brunch &mdash; Con Tortilla</span>
+          <p class="cat-note">Available as a Quesadilla (crisp grilled tortilla with eggs, cheese, fillings; tots on side) or as a Burrito (same egg/cheese base + salsa, potato, fillings, wrapped in a warm tortilla).</p>
+          <div class="menu-list">
+            <div class="item">
+              <span class="item-name">Classic Queso (E&amp;C)</span>
+              <span class="item-desc">Two-egg omelette with American cheese and shredded Colby Jack. Add-on meats: pork chop, sausage, bacon, ham, or smoked link.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Rita Ranchero</span>
+              <span class="item-desc">Classic Queso plus chili con carne.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Pueblo Verde</span>
+              <span class="item-desc">Classic Queso plus chili verde.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Buckaroo</span>
+              <span class="item-desc">Sliced steak (garlic-smoked tenders), grilled onion, BBQ sauce.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Philly</span>
+              <span class="item-desc">Sliced steak tenders, grilled onion, grilled bell pepper, white American cheese.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Denver</span>
+              <span class="item-desc">Diced ham, onion, peppers.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Veggie</span>
+              <span class="item-tag veg">Veggie</span>
+              <span class="item-desc">Spinach, onion, peppers, salsa, mushroom.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-cat">
+          <span class="cat-head">&#129374; Wy-Hop Griddle</span>
+          <p class="cat-note">Each item available as flapjacks OR French toast.</p>
+          <div class="menu-list">
+            <div class="item">
+              <span class="item-name">Classic</span>
+              <span class="item-desc">Two flapjacks (or toast) with powdered sugar and honey butter. Side of syrup.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Stacks</span>
+              <span class="item-desc">Two flapjacks (or toast) with peanut butter &amp; whipped cream, OR cream cheese spread, whipped cream, and fruit / dessert toppings.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">PB &amp; J</span>
+              <span class="item-desc">Peanut butter, strawberry jam, powdered sugar, whipped cream, side of syrup.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Elvis</span>
+              <span class="item-desc">Peanut butter, banana, powdered sugar, whipped cream, syrup.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Fluffer Nut</span>
+              <span class="item-desc">Peanut butter, marshmallow fluff, chocolate syrup, whipped cream.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Apple Stack</span>
+              <span class="item-desc">Cheesecake spread, stewed apples, whipped cream, graham crumbs.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Strawberry Stack</span>
+              <span class="item-desc">Cheesecake spread, shortcake-style strawberries, whipped cream, graham crumbs.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Peach Stack</span>
+              <span class="item-desc">Cheesecake spread, cobbler-style peaches, whipped cream, graham crumbs.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-cat">
+          <span class="cat-head">&#127828; Burgers</span>
+          <p class="cat-note">All burgers are 1/3 lb. patties, served with fresh-cut French fries.</p>
+          <div class="menu-list">
+            <div class="item">
+              <span class="item-name">Classic</span>
+              <span class="item-desc">Brioche or Hawaiian bun. Melted American cheese, lettuce, tomato, pickle, onion, ketchup &amp; mustard.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Hangover</span>
+              <span class="item-desc">Crisp bacon, over-easy egg, pepper jack &amp; cheddar, chipotle mayo, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Bacon Cheddar</span>
+              <span class="item-desc">Crisp bacon, 2 slices cheddar, lettuce, tomato, pickle, onion, ketchup &amp; mustard, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Bleu Sky</span>
+              <span class="item-desc">Crisp bacon, blue cheese crumbles, lettuce, onion, chipotle mayo, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Buckaroo</span>
+              <span class="item-desc">Crisp bacon, 2 slices cheddar, grilled onion, BBQ glaze, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Southwest</span>
+              <span class="item-desc">Jalape&ntilde;os, pepper jack, grilled onion, lettuce, tomato, chipotle mayo, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Aloha</span>
+              <span class="item-desc">Grilled pineapple, grilled onion, pepper jack, lettuce, teriyaki sauce, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Stroganoff &amp; Swiss</span>
+              <span class="item-desc">Grilled onion &amp; mushrooms, Swiss cheese, stroganoff sauce, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Frisco</span>
+              <span class="item-desc">Crisp bacon, grilled onion, Swiss, tomato, lettuce, signature fry sauce, on toasted sourdough.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Patty Melt</span>
+              <span class="item-desc">Grilled onion, Swiss cheese, signature fry sauce, on grill-toasted rye.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Pueblo Verde</span>
+              <span class="item-desc">Pepper jack cheese. Open-faced, smothered in pork green chili and shredded Colby Jack.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Chili Cheese</span>
+              <span class="item-desc">Cheddar cheese. Open-faced, smothered in chili con carne, topped with diced onion and shredded Colby Jack. Jalape&ntilde;os optional.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-cat">
+          <span class="cat-head">&#129385; Sandwiches</span>
+          <div class="menu-list">
+            <div class="item">
+              <span class="item-name">Sioux City Tenderloin</span>
+              <span class="item-desc">Large pork tenderloin, hand-breaded in Jack's secret recipe and deep-fried. On a bun with lettuce, onion, pickle. Choice of mayo, mustard, or ketchup.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">BLT</span>
+              <span class="item-desc">Double-decker. Bacon, lettuce, tomato, mayo, on sourdough.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Reuben</span>
+              <span class="item-desc">Pastrami, sauerkraut, Swiss cheese, signature fry sauce, on grilled rye.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Classic Philly Cheese Steak</span>
+              <span class="item-desc">Seasoned steak slices, grilled onions, bell pepper, melted American cheese, on a hoagie roll.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Southwest Philly Cheese Steak</span>
+              <span class="item-desc">Seasoned steak slices, grilled onions, bell peppers, jalape&ntilde;os, melted pepper jack, chipotle mayo, on a hoagie roll.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-cat">
+          <span class="cat-head">&#128020; Chicken Sandwiches</span>
+          <p class="cat-note">Default served on a bun. Crispy or grilled where noted.</p>
+          <div class="menu-list">
+            <div class="item">
+              <span class="item-name">Chicken Jack</span>
+              <span class="item-desc">Crispy chicken breast between two flapjacks. Honey butter or hot honey.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Classic Chicken</span>
+              <span class="item-desc">Crispy or grilled. Lettuce, tomato, pickle, onion, mayo, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Cordon Bleu</span>
+              <span class="item-desc">Crispy or grilled. Ham, melted Swiss, lettuce, honey Dijon dressing, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Aloha Moa</span>
+              <span class="item-desc">Grilled. Ham, grilled onion, grilled pineapple, pepper jack, lettuce. Teriyaki-glazed, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Southwest</span>
+              <span class="item-desc">Grilled. Jalape&ntilde;os, grilled onion, pepper jack, lettuce, tomato, chipotle mayo, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Buckaroo</span>
+              <span class="item-desc">Grilled. Crisp bacon, cheddar, grilled onion. BBQ-glazed, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Frisco</span>
+              <span class="item-desc">Grilled. Crisp bacon, Swiss, grilled onion, tomato, lettuce, Jackalope dressing, on toasted sourdough.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Buffalo Chicken</span>
+              <span class="item-desc">Crispy or grilled. Tossed in Buffalo sauce. Blue cheese crumbles, slaw, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Leaping Lemon</span>
+              <span class="item-desc">Grilled. Tossed in Leaping Lemon sauce (peppercorn, citrus, honey butter glaze). Lettuce, tomato, on bun.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Pueblo Verde</span>
+              <span class="item-desc">Grilled. Pepper jack cheese. Open-faced, smothered in pork green chili and shredded cheese.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-cat">
+          <span class="cat-head">&#129367; Salads</span>
+          <p class="cat-note">All salads on a bed of fresh greens.</p>
+          <div class="menu-list">
+            <div class="item">
+              <span class="item-name">Classic Chicken Salad</span>
+              <span class="item-desc">Grilled chicken breast, tomato, onion, cucumber, bell pepper, choice of dressing.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Chef Salad</span>
+              <span class="item-desc">Grilled chicken, ham, bacon, hard-boiled egg, cheddar, tomato, onion, cucumber, croutons, choice of dressing.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Cobb Salad</span>
+              <span class="item-desc">Grilled chicken, bacon, hard-boiled egg, blue cheese, tomato, onion, cucumber, bell pepper, croutons, choice of dressing.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Cordon Bleu Salad</span>
+              <span class="item-desc">Grilled chicken, ham, Swiss cheese, tomato, green onion, cucumber, croutons, honey Dijon dressing.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Aloha Salad</span>
+              <span class="item-desc">Grilled chicken, ham, pineapple, pepper jack cheese, onion, bell pepper, chopped nuts, Asian vinaigrette.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Leaping Lemon Salad</span>
+              <span class="item-desc">Grilled chicken tossed in Leaping Lemon glaze. Tomato, cucumber, green onion, citrus slices, chopped nuts, peppercorn citrus dressing.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-cat">
+          <span class="cat-head">&#9749; Drinks</span>
+          <div class="menu-list">
+            <div class="item">
+              <span class="item-name">Hot Coffee</span>
+              <span class="item-desc">Available in small or large.</span>
+            </div>
+            <div class="item">
+              <span class="item-name">Canned &amp; Bottled Beverages</span>
+              <span class="item-desc">Pepsi product lineup &mdash; bottled waters, coffee drinks, juices, milk, chocolate milk, sports drinks, and energy drinks.</span>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top:36px;font-size:0.85rem;color:#4a3f33;">
+          Ask the window about allergens &mdash; we're happy to help. Menu items subject to change with seasons and supply.
+        </p>
+      </div>
     </div>
-  </div>
+  </section>
 
-
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Southwest Burger</div>
-      <div class="item-desc">Beef patty, Pepperjack cheese, jalapenos, onions, Jack sauce</div>
-      <span class="tag tag--spicy”>Spicy</span>
+  <!-- ================= DAILY MENU ================= -->
+  <section class="page" id="daily">
+    <div class="hero" style="padding:48px 22px 56px;">
+      <span class="badge">Changes Every Single Day</span>
+      <h1 style="font-size:clamp(2.6rem,9vw,5rem);">TODAY'S BOARD</h1>
+      <div class="hero-script">whatever's freshest is whatever's on</div>
     </div>
-    <div class="item-price">$15</div>
-  </div>
 
+    <div class="section">
+      <div class="wrap">
+        <div class="board">
+          <div class="board-date">&#9733; Friday Special &#9733;</div>
+          <div class="board-title">Today We're Slinging</div>
+          <div class="board-rule"></div>
 
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Bacon BBQ Stack</div>
-      <div class="item-desc">Beef patty, thick bacon, cheddar, crispy onion rings, smoky BBQ</div>
+          <div class="board-item">
+            <span class="bn">Maple-Bacon Smash Burger</span>
+            <span class="bd"></span>
+            <span class="bp">$13</span>
+          </div>
+          <div class="board-item">
+            <span class="bn">Buffalo Chicken Loaded Fries</span>
+            <span class="bd"></span>
+            <span class="bp">$10</span>
+          </div>
+          <div class="board-item">
+            <span class="bn">Smoked Brisket Grilled Cheese</span>
+            <span class="bd"></span>
+            <span class="bp">$12</span>
+          </div>
+          <div class="board-item soldout">
+            <span class="bn">Birthday Cake Freakshake</span>
+            <span class="bd"></span>
+            <span class="bp">Sold Out</span>
+          </div>
+          <div class="board-item">
+            <span class="bn">Salted Caramel Milkshake</span>
+            <span class="bd"></span>
+            <span class="bp">$7</span>
+          </div>
+
+          <div class="board-note">
+            &#9888; Specials run until we sell out &mdash; get here early!
+          </div>
+        </div>
+
+        <div class="kicker" style="margin-top:46px;">This Week's Rotation</div>
+        <h2 class="h2" style="font-size:clamp(1.8rem,5vw,2.6rem);">A taste of what's coming up</h2>
+        <div class="daily-strip">
+          <div class="day-pill"><b>Mon</b> &middot; Smokehouse Day</div>
+          <div class="day-pill"><b>Tue</b> &middot; Taco-Smash Tuesday</div>
+          <div class="day-pill"><b>Wed</b> &middot; Wing It Wednesday</div>
+          <div class="day-pill"><b>Thu</b> &middot; Mac Attack</div>
+          <div class="day-pill"><b>Fri</b> &middot; Chef's Choice</div>
+          <div class="day-pill"><b>Sat</b> &middot; Big Brunch Smash</div>
+        </div>
+
+        <p style="margin-top:30px;font-size:0.9rem;color:#4a3f33;max-width:620px;line-height:1.55;">
+          The daily board is hand-written fresh each morning based on what our suppliers bring in. Follow us online for a sneak peek &mdash; we usually post the day's specials by 9am.
+        </p>
+      </div>
     </div>
-    <div class="item-price">$16</div>
-  </div>
+  </section>
 
-
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Mushroom Swiss</div>
-      <div class="item-desc">Sautéed mushrooms, Swiss cheese, garlic aioli, arugula</div>
+  <!-- ================= EVENTS ================= -->
+  <section class="page" id="events">
+    <div class="hero" style="padding:48px 22px 56px;">
+      <span class="badge">Catch Us On The Road</span>
+      <h1 style="font-size:clamp(2.6rem,9vw,5rem);">EVENTS</h1>
+      <div class="hero-script">where the truck is parked next</div>
     </div>
-    <div class="item-price">$15</div>
-  </div>
 
+    <div class="section">
+      <div class="wrap">
+        <div class="kicker">Upcoming Stops</div>
+        <h2 class="h2">The Big Back Tour</h2>
 
-</section>
+        <div class="event">
+          <div class="ev-date"><div class="m">May</div><div class="d">24</div></div>
+          <div class="ev-info">
+            <h4>Riverside Night Market</h4>
+            <p>Riverfront Park, Downtown &bull; 5:00 PM &ndash; 10:00 PM</p>
+          </div>
+          <div class="ev-status go">We'll Be There</div>
+        </div>
 
-<!-- SIDES & DRINKS -->
-<section class="menu-section">
-  <div class="section-header">
-    <div class="section-icon">🥤</div>
-    <div>
-      <div class="section-title">Sides & Drinks</div>
+        <div class="event">
+          <div class="ev-date"><div class="m">May</div><div class="d">29</div></div>
+          <div class="ev-info">
+            <h4>Maple Street Food Truck Rally</h4>
+            <p>Maple Street Lot &bull; 11:00 AM &ndash; 8:00 PM</p>
+          </div>
+          <div class="ev-status go">We'll Be There</div>
+        </div>
+
+        <div class="event">
+          <div class="ev-date"><div class="m">Jun</div><div class="d">07</div></div>
+          <div class="ev-info">
+            <h4>Summer Kickoff Block Party</h4>
+            <p>5th &amp; Oak &bull; 12:00 PM &ndash; 9:00 PM</p>
+          </div>
+          <div class="ev-status soon">Tickets Soon</div>
+        </div>
+
+        <div class="event">
+          <div class="ev-date"><div class="m">Jun</div><div class="d">14</div></div>
+          <div class="ev-info">
+            <h4>Lakeside Music &amp; Eats Festival</h4>
+            <p>Lakeside Amphitheater &bull; 2:00 PM &ndash; 11:00 PM</p>
+          </div>
+          <div class="ev-status full">Event Sold Out</div>
+        </div>
+
+        <div class="event">
+          <div class="ev-date"><div class="m">Jun</div><div class="d">21</div></div>
+          <div class="ev-info">
+            <h4>Brewery District Pop-Up</h4>
+            <p>Old Mill Brewing Co. &bull; 4:00 PM &ndash; 10:00 PM</p>
+          </div>
+          <div class="ev-status go">We'll Be There</div>
+        </div>
+
+        <div class="book-bar">
+          <h3>Want us at your event?</h3>
+          <p style="margin-bottom:18px;">Weddings, office parties, festivals, backyard birthdays &mdash; if there are hungry people, we'll bring the truck.</p>
+          <button class="btn btn-yellow" onclick="alert('Booking form goes here \u2014 hook this up to your email or scheduling tool.')">Book The Truck</button>
+        </div>
+      </div>
     </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="fbrand">BIG BACK JACKS</div>
+  <p>Big plates, no apologies. &bull; Open Wed&ndash;Sun &bull; Cash &amp; card welcome</p>
+  <div class="socials">
+    <span>Instagram</span>
+    <span>TikTok</span>
+    <span>Facebook</span>
   </div>
+  <p style="margin-top:16px;">&copy; 2026 Big Back Jacks Food Truck. All rights reserved.</p>
+</footer>
 
+<script>
+  function go(id) {
+    document.querySelectorAll('.page').forEach(function (p) {
+      p.classList.toggle('show', p.id === id);
+    });
+    document.querySelectorAll('.tab').forEach(function (t) {
+      t.classList.toggle('active', t.dataset.tab === id);
+    });
+    history.replaceState(null, '', '#' + id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Seasoned Fries</div>
-      <div class="item-desc">House-seasoned, crispy golden</div>
-    </div>
-    <div class="item-price">$5</div>
-  </div>
-
-
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Loaded Cheese Fries</div>
-      <div class="item-desc">Fries, queso, bacon, jalapeños, sour cream</div>
-    </div>
-    <div class="item-price">$8</div>
-  </div>
-
-
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Fresh Lemonade</div>
-      <div class="item-desc">Classic or strawberry</div>
-    </div>
-    <div class="item-price">$4</div>
-  </div>
-
-
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Iced Coffee</div>
-      <div class="item-desc">Cold brew, black or with cream</div>
-    </div>
-    <div class="item-price">$5</div>
-  </div>
-
-
-  <div class="item">
-    <div class="item-info">
-      <div class="item-name">Bottled Water / Soda</div>
-    </div>
-    <div class="item-price">$2</div>
-  </div>
-</section>
-
-
-<!-- Footer -->
-<div class="footer">
-  <div class="footer-logo">Big Back Jack's</div>
-  <p>Prices may vary · Ask about allergens<br>Tips appreciated — thank you!</p>
-  <div class="socials">@bigbackjacks</div>
-</div>
-
+  // open correct tab if the page loads with a hash
+  var start = location.hash.replace('#', '');
+  if (['home', 'menu', 'daily', 'events'].indexOf(start) !== -1) {
+    go(start);
+  }
+</script>
 
 </body>
 </html>
