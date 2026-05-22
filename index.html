@@ -179,6 +179,16 @@
   .hero h1 .stack { display: block; }
   .hero h1 .jacks { color: var(--mustard); }
 
+  /* wordmark image used in place of the home hero headline */
+  .hero-wordmark {
+    display: block;
+    width: min(640px, 88%);
+    height: auto;
+    margin: 26px auto 8px;
+    filter: drop-shadow(5px 5px 0 var(--ink));
+    animation: pop .5s cubic-bezier(.2,1.4,.4,1) both;
+  }
+
   .hero-script {
     font-family: 'Caveat', cursive;
     color: var(--cream);
@@ -718,7 +728,7 @@
 <header>
   <div class="nav-inner">
     <div class="brand" onclick="go('home')">
-      <img class="brand-logo" src="wordmark.png" alt="Big Back Jacks" />
+      <img class="brand-logo" src="favicon-180.png" alt="Big Back Jacks" />
     </div>
     <nav>
       <button class="tab active" data-tab="home"   onclick="go('home')">Home</button>
@@ -736,10 +746,7 @@
   <section class="page show" id="home">
     <div class="hero">
       <span class="badge">Rolling since 2026 &bull; Burgers &amp; Brunch</span>
-      <h1>
-        <span class="stack">BIG BACK</span>
-        <span class="stack jacks">JACKS</span>
-      </h1>
+      <img class="hero-wordmark" src="wordmark.png" alt="Big Back Jacks" />
       <div class="hero-script">Kemmerer, Wyoming</div>
       <div class="cta-row">
         <button class="btn btn-yellow" onclick="go('order')">&#128722; Order Online</button>
@@ -1273,51 +1280,37 @@
       <div class="wrap">
         <div class="kicker">Upcoming Stops</div>
         <h2 class="h2">The Big Back Tour</h2>
+        <p class="sec-sub" style="margin:10px 0 0;text-align:left;max-width:620px;">
+          Here's where the truck is headed next &mdash; pulled straight from our
+          Google Calendar, so it's always up to date.
+        </p>
 
-        <div class="event">
-          <div class="ev-date"><div class="m">May</div><div class="d">24</div></div>
-          <div class="ev-info">
-            <h4>Riverside Night Market</h4>
-            <p>Riverfront Park, Downtown &bull; 5:00 PM &ndash; 10:00 PM</p>
-          </div>
-          <div class="ev-status go">We'll Be There</div>
+        <!--
+          ================== GOOGLE CALENDAR EMBED ===================
+          This page is connected to the Big Back Jacks Google Calendar.
+          Just add or edit events in Google Calendar and this page
+          updates itself automatically.
+
+          IMPORTANT: the calendar must stay PUBLIC for visitors to see it
+          (Google Calendar > Settings > your calendar > "Access permissions
+          for events" > "Make available to public").
+
+          To switch to a different calendar later, replace the Calendar ID
+          in the two URLs below. Times show in Mountain Time (ctz=America/Denver).
+          =============================================================
+        -->
+        <div class="order-frame-wrap">
+          <iframe
+            class="order-frame"
+            src="https://calendar.google.com/calendar/embed?src=cfb25fff598c1bb900c4338bb5656b89bb41c02b19883882cc73dfd201aea77b@group.calendar.google.com&amp;ctz=America/Denver&amp;mode=AGENDA&amp;showTitle=0&amp;showPrint=0&amp;showCalendars=0&amp;showTz=0"
+            title="Big Back Jacks Events Calendar"
+            loading="lazy"></iframe>
         </div>
 
-        <div class="event">
-          <div class="ev-date"><div class="m">May</div><div class="d">29</div></div>
-          <div class="ev-info">
-            <h4>Maple Street Food Truck Rally</h4>
-            <p>Maple Street Lot &bull; 11:00 AM &ndash; 8:00 PM</p>
-          </div>
-          <div class="ev-status go">We'll Be There</div>
-        </div>
-
-        <div class="event">
-          <div class="ev-date"><div class="m">Jun</div><div class="d">07</div></div>
-          <div class="ev-info">
-            <h4>Summer Kickoff Block Party</h4>
-            <p>5th &amp; Oak &bull; 12:00 PM &ndash; 9:00 PM</p>
-          </div>
-          <div class="ev-status soon">Tickets Soon</div>
-        </div>
-
-        <div class="event">
-          <div class="ev-date"><div class="m">Jun</div><div class="d">14</div></div>
-          <div class="ev-info">
-            <h4>Lakeside Music &amp; Eats Festival</h4>
-            <p>Lakeside Amphitheater &bull; 2:00 PM &ndash; 11:00 PM</p>
-          </div>
-          <div class="ev-status full">Event Sold Out</div>
-        </div>
-
-        <div class="event">
-          <div class="ev-date"><div class="m">Jun</div><div class="d">21</div></div>
-          <div class="ev-info">
-            <h4>Brewery District Pop-Up</h4>
-            <p>Old Mill Brewing Co. &bull; 4:00 PM &ndash; 10:00 PM</p>
-          </div>
-          <div class="ev-status go">We'll Be There</div>
-        </div>
+        <p class="order-fallback">
+          Calendar not loading above?
+          <a href="https://calendar.google.com/calendar/embed?src=cfb25fff598c1bb900c4338bb5656b89bb41c02b19883882cc73dfd201aea77b@group.calendar.google.com&amp;ctz=America/Denver" target="_blank" rel="noreferrer">Open our events calendar in a new tab &#8599;</a>
+        </p>
 
 
         <div class="book-bar">
