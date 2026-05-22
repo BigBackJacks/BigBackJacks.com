@@ -13,6 +13,8 @@
     --cream-dk: #e9d6a8;
     --red:      #c2371f;
     --red-dk:   #95271266;
+    --green:    #55653b;
+    --green-dk: #39432666;
     --mustard:  #e6a234;
     --teal:     #1f6f63;
     --ink:      #211a14;
@@ -52,9 +54,9 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: var(--red);
+    background: var(--green);
     border-bottom: 5px solid var(--ink);
-    box-shadow: 0 6px 0 var(--red-dk);
+    box-shadow: 0 6px 0 var(--green-dk);
   }
 
   .nav-inner {
@@ -69,21 +71,22 @@
   }
 
   .brand {
-    font-family: 'Alfa Slab One', serif;
-    color: var(--cream);
-    font-size: 1.45rem;
-    letter-spacing: 0.5px;
-    text-shadow: 2px 2px 0 var(--ink);
+    display: flex;
+    align-items: center;
     cursor: pointer;
     line-height: 1;
-    white-space: nowrap;
   }
-  .brand span { color: var(--mustard); }
+  .brand-logo {
+    display: block;
+    height: 60px;
+    width: auto;          /* keeps the 522:220 aspect ratio */
+  }
 
   nav {
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
+    align-items: center;
   }
 
   .tab {
@@ -107,6 +110,27 @@
     border-color: var(--ink);
     box-shadow: 3px 3px 0 var(--ink);
   }
+
+  /* nav order-online button (external link) */
+  .order-link {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink);
+    background: var(--mustard);
+    border: 2px solid var(--ink);
+    padding: 9px 16px;
+    border-radius: 7px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .order-link:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  .order-link .cart { margin-right: 5px; }
 
   /* ---------- PAGE SYSTEM ---------- */
   main { position: relative; z-index: 2; }
@@ -184,6 +208,8 @@
     box-shadow: 5px 5px 0 var(--ink);
     transition: transform .12s ease, box-shadow .12s ease;
   }
+  /* allow .btn to work as an anchor too */
+  a.btn { display: inline-block; text-decoration: none; }
   .btn:hover { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
   .btn-yellow { background: var(--mustard); color: var(--ink); }
   .btn-cream  { background: var(--cream); color: var(--ink); }
@@ -294,6 +320,67 @@
   .mods li { font-size: 0.9rem; padding: 4px 0; line-height: 1.4; }
   .mods li b { font-weight: 700; }
   @media (max-width: 640px) { .mods-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- ORDER BANNER (reusable call-to-order strip) ---------- */
+  .order-banner {
+    margin-top: 40px;
+    background: var(--mustard);
+    border: 4px solid var(--ink);
+    border-radius: 14px;
+    box-shadow: 8px 8px 0 var(--ink);
+    padding: 30px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .order-banner .ob-text { max-width: 560px; }
+  .order-banner h3 {
+    font-family: 'Shrikhand', cursive;
+    font-size: 1.7rem;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+  .order-banner p {
+    font-size: 0.92rem;
+    color: #3a322a;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  .btn-ink { background: var(--ink); color: var(--mustard); }
+  @media (max-width: 600px) {
+    .order-banner { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ---------- EMBEDDED ORDER FRAME ---------- */
+  .order-frame-wrap {
+    margin-top: 26px;
+    border: 5px solid var(--ink);
+    border-radius: 14px;
+    box-shadow: 8px 8px 0 var(--ink);
+    overflow: hidden;
+    background: var(--cream);
+  }
+  .order-frame {
+    width: 100%;
+    height: 80vh;
+    min-height: 700px;
+    border: 0;
+    display: block;
+  }
+  .order-fallback {
+    margin-top: 22px;
+    font-size: 0.9rem;
+    color: #4a3f33;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .order-fallback a { color: var(--red); font-weight: 700; text-decoration: none; }
+  .order-fallback a:hover { text-decoration: underline; }
+  @media (max-width: 600px) {
+    .order-frame { height: 78vh; min-height: 620px; }
+  }
 
   /* ---------- DAILY CHALKBOARD ---------- */
   .board {
@@ -437,8 +524,13 @@
   }
   footer p { font-size: 0.88rem; margin-top: 8px; color: #f3e7c8aa; }
   .socials { margin-top: 14px; display: flex; gap: 18px; justify-content: center; }
-  .socials span { font-weight: 700; cursor: pointer; }
-  .socials span:hover { color: var(--mustard); }
+  .socials span, .socials a {
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .socials span:hover, .socials a:hover { color: var(--mustard); }
 
   /* ---------- HERO EXTRAS ---------- */
   .hero h1 .stack { animation: pop .5s cubic-bezier(.2,1.4,.4,1) both; }
@@ -625,12 +717,15 @@
 <!-- ================= NAV ================= -->
 <header>
   <div class="nav-inner">
-    <div class="brand" onclick="go('home')">BIG BACK <span>JACKS</span></div>
+    <div class="brand" onclick="go('home')">
+      <img class="brand-logo" src="wordmark.png" alt="Big Back Jacks" />
+    </div>
     <nav>
       <button class="tab active" data-tab="home"   onclick="go('home')">Home</button>
       <button class="tab"        data-tab="menu"   onclick="go('menu')">Full Menu</button>
       <button class="tab"        data-tab="daily"  onclick="go('daily')">Today's Board</button>
       <button class="tab"        data-tab="events" onclick="go('events')">Events</button>
+      <button class="order-link" onclick="go('order')"><span class="cart">&#128722;</span>Order Online</button>
     </nav>
   </div>
 </header>
@@ -647,8 +742,8 @@
       </h1>
       <div class="hero-script">Kemmerer, Wyoming</div>
       <div class="cta-row">
-        <button class="btn btn-yellow" onclick="go('daily')">See Today's Board</button>
-        <button class="btn btn-cream" onclick="go('events')">Find The Truck</button>
+        <button class="btn btn-yellow" onclick="go('order')">&#128722; Order Online</button>
+        <button class="btn btn-cream" onclick="go('daily')">See Today's Board</button>
       </div>
     </div>
 
@@ -727,7 +822,8 @@
           </div>
         </div>
         <div class="cta-row" style="margin-top:34px;">
-          <button class="btn btn-yellow" onclick="go('menu')">See The Full Menu</button>
+          <button class="btn btn-yellow" onclick="go('order')">&#128722; Order Online</button>
+          <button class="btn btn-cream" onclick="go('menu')">See The Full Menu</button>
         </div>
       </div>
     </div>
@@ -767,11 +863,11 @@
 
     <!-- FIND US CTA -->
     <div class="home-cta">
-      <h2>Come Find The Truck</h2>
-      <p>Check today's hand-written board or see where we're parked next. Your next favorite meal is one tap away.</p>
+      <h2>Skip The Line</h2>
+      <p>Order ahead online and pick it up hot at the window &mdash; or check today's hand-written board first.</p>
       <div class="cta-row">
-        <button class="btn btn-yellow" onclick="go('daily')">Today's Board</button>
-        <button class="btn btn-cream" onclick="go('events')">Upcoming Events</button>
+        <button class="btn btn-yellow" onclick="go('order')">&#128722; Order Online</button>
+        <button class="btn btn-cream" onclick="go('daily')">Today's Board</button>
       </div>
     </div>
   </section>
@@ -782,6 +878,9 @@
       <span class="badge">The Whole Lineup</span>
       <h1 style="font-size:clamp(2.6rem,9vw,5rem);">FULL MENU</h1>
       <div class="hero-script">everything we cook, all in one place</div>
+      <div class="cta-row">
+        <button class="btn btn-yellow" onclick="go('order')">&#128722; Order Online</button>
+      </div>
     </div>
 
     <div class="section">
@@ -1079,6 +1178,15 @@
           </div>
         </div>
 
+        <!-- ORDER ONLINE BANNER -->
+        <div class="order-banner">
+          <div class="ob-text">
+            <h3>Ready to eat? Order it online.</h3>
+            <p>Build your order, pay ahead, and skip the window line. Pickup is hot and ready when you arrive.</p>
+          </div>
+          <button class="btn btn-ink" onclick="go('order')">&#128722; Order Online</button>
+        </div>
+
         <p style="margin-top:36px;font-size:0.85rem;color:#4a3f33;">
           Ask the window about allergens &mdash; we're happy to help. Menu items subject to change with seasons and supply.
         </p>
@@ -1092,6 +1200,9 @@
       <span class="badge">Changes Every Single Day</span>
       <h1 style="font-size:clamp(2.6rem,9vw,5rem);">TODAY'S BOARD</h1>
       <div class="hero-script">whatever's freshest is whatever's on</div>
+      <div class="cta-row">
+        <button class="btn btn-yellow" onclick="go('order')">&#128722; Order Online</button>
+      </div>
     </div>
 
     <div class="section">
@@ -1172,6 +1283,15 @@
           </div>
         </div>
 
+        <!-- ORDER ONLINE BANNER -->
+        <div class="order-banner">
+          <div class="ob-text">
+            <h3>See something you want? Order it now.</h3>
+            <p>Today's board is live online &mdash; place your order and we'll have it ready at the window.</p>
+          </div>
+          <button class="btn btn-ink" onclick="go('order')">&#128722; Order Online</button>
+        </div>
+
         <div class="kicker" style="margin-top:46px;">This Week's Rotation</div>
         <h2 class="h2" style="font-size:clamp(1.8rem,5vw,2.6rem);">A taste of what's coming up</h2>
         <div class="daily-strip">
@@ -1248,11 +1368,52 @@
           <div class="ev-status go">We'll Be There</div>
         </div>
 
+        <!-- ORDER ONLINE BANNER -->
+        <div class="order-banner">
+          <div class="ob-text">
+            <h3>Catching us at a stop? Order ahead.</h3>
+            <p>Beat the event-day rush &mdash; place your order online and pick it up fast at the truck.</p>
+          </div>
+          <button class="btn btn-ink" onclick="go('order')">&#128722; Order Online</button>
+        </div>
+
         <div class="book-bar">
           <h3>Want us at your event?</h3>
           <p style="margin-bottom:18px;">Weddings, office parties, festivals, backyard birthdays &mdash; if there are hungry people, we'll bring the truck.</p>
           <button class="btn btn-yellow" onclick="alert('Booking form goes here \u2014 hook this up to your email or scheduling tool.')">Book The Truck</button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ORDER ONLINE (embedded) ================= -->
+  <section class="page" id="order">
+    <div class="hero" style="padding:48px 22px 56px;">
+      <span class="badge">Order &amp; Pay Online</span>
+      <h1 style="font-size:clamp(2.6rem,9vw,5rem);">ORDER ONLINE</h1>
+      <div class="hero-script">build your order &mdash; pick it up hot</div>
+    </div>
+
+    <div class="section">
+      <div class="wrap">
+        <div class="kicker">Powered by talech</div>
+        <h2 class="h2" style="font-size:clamp(1.8rem,5vw,2.6rem);">Order right here</h2>
+        <p class="sec-sub" style="margin:10px 0 0;text-align:left;max-width:620px;">
+          Browse the live menu, customize your items, and check out below &mdash; no need to leave the page.
+        </p>
+
+        <div class="order-frame-wrap">
+          <iframe
+            class="order-frame"
+            src="https://microsite.talech.com/ordering/BIG-BACK-JACKS-LLC-KEMMERER-WY/gzVvOYjlbvw3BEpP"
+            title="Big Back Jacks Online Ordering"
+            loading="lazy"></iframe>
+        </div>
+
+        <p class="order-fallback">
+          Menu not loading above?
+          <a href="https://microsite.talech.com/ordering/BIG-BACK-JACKS-LLC-KEMMERER-WY/gzVvOYjlbvw3BEpP" target="_blank" rel="noreferrer">Open the ordering page in a new tab &#8599;</a>
+        </p>
       </div>
     </div>
   </section>
@@ -1263,8 +1424,12 @@
 <footer>
   <div class="fbrand">BIG BACK JACKS</div>
   <p>Open Mon&ndash;Fri &bull; Cash &amp; card welcome</p>
+  <div class="cta-row" style="margin-top:18px;">
+    <button class="btn btn-yellow" onclick="go('order')">&#128722; Order Online</button>
+  </div>
   <div class="socials">
     <span>Facebook</span>
+    <a href="#order" onclick="go('order');return false;">Order Online</a>
   </div>
   <p style="margin-top:16px;">&copy; 2026 Big Back Jacks LLC. All rights reserved.</p>
 </footer>
@@ -1287,7 +1452,7 @@
 
   // open correct tab if the page loads with a hash
   var start = location.hash.replace('#', '');
-  if (['home', 'menu', 'daily', 'events'].indexOf(start) !== -1) {
+  if (['home', 'menu', 'daily', 'events', 'order'].indexOf(start) !== -1) {
     go(start);
   }
 </script>
