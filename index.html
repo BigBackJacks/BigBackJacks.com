@@ -448,6 +448,16 @@
     transform: translateY(-5px);
   }
   .board-item .bp { color: var(--mustard); white-space: nowrap; }
+  .board-entry { padding: 9px 0; }
+  .board-entry .board-item { padding: 0; }
+  .board-desc {
+    font-family: 'Caveat', cursive;
+    font-size: 1.12rem;
+    line-height: 1.25;
+    color: #cdbf9b;
+    margin-top: 2px;
+    max-width: 92%;
+  }
 
   .daily-strip {
     display: flex;
@@ -803,19 +813,19 @@
             <div class="fav-body">
               <div class="fav-name">Sioux City Tenderloin</div>
               <div class="fav-desc">Hand-breaded pork loin, deep-fried golden, on a bun with the works.</div>
-              <div class="fav-price">$18</div>
+              <div class="fav-price">$12.50</div>
             </div>
           </div>
           <div class="fav-card">
-            <!-- Replace with: <img class="fav-img" src="your-image.jpg" alt="Hangover Burger"> -->
+            <!-- Replace with: <img class="fav-img" src="your-image.jpg" alt="Bleu Sky Burger"> -->
             <div class="fav-placeholder">
               <span class="fp-icon">&#128247;</span>
               <span class="fp-label">Add Photo</span>
             </div>
             <div class="fav-body">
-              <div class="fav-name">Hangover Burger</div>
-              <div class="fav-desc">Bacon, over-easy egg, pepper jack &amp; cheddar, chipotle mayo.</div>
-              <div class="fav-price">$15</div>
+              <div class="fav-name">Bleu Sky Burger</div>
+              <div class="fav-desc">Crisp bacon, blue cheese crumbles, lettuce, onion, chipotle mayo.</div>
+              <div class="fav-price">$17.50</div>
             </div>
           </div>
           <div class="fav-card">
@@ -827,7 +837,7 @@
             <div class="fav-body">
               <div class="fav-name">Chicken Jack</div>
               <div class="fav-desc">Crispy chicken between two flapjacks. Honey butter or hot honey.</div>
-              <div class="fav-price">$12</div>
+              <div class="fav-price">$10</div>
             </div>
           </div>
           <div class="fav-card">
@@ -839,7 +849,7 @@
             <div class="fav-body">
               <div class="fav-name">Apple Stack</div>
               <div class="fav-desc">Cheesecake spread, stewed apples, whipped cream, graham crumbs.</div>
-              <div class="fav-price">$12</div>
+              <div class="fav-price">$12.50</div>
             </div>
           </div>
         </div>
@@ -1205,63 +1215,96 @@
     <div class="section">
       <div class="wrap">
         <div class="board">
-          <div class="board-date">&#9733; Monday, May 25th &#9733;</div>
+          <div class="board-date">&#9733; Thursday, May 28th &#9733;</div>
           <div class="board-rule"></div>
 
-          <div class="board-item">
-            <span class="bn">Bunny</span>
-            <span class="bd"></span>
-            <span class="bp">$8</span>
+          <div class="board-entry">
+            <div class="board-item">
+              <span class="bn">Bunny</span>
+              <span class="bd"></span>
+              <span class="bp">$8</span>
+            </div>
+            <div class="board-desc">Brunch sandwich on a hamburger bun &mdash; choice of meat, over-medium egg &amp; cheese, with sauce.</div>
           </div>
-          <div class="board-item">
-            <span class="bn">Jack</span>
-            <span class="bd"></span>
-            <span class="bp">$8</span>
+          <div class="board-entry">
+            <div class="board-item">
+              <span class="bn">Jack</span>
+              <span class="bd"></span>
+              <span class="bp">$8</span>
+            </div>
+            <div class="board-desc">Brunch sandwich on flapjacks &mdash; choice of meat, over-medium egg &amp; cheese, honey butter or hot honey.</div>
           </div>
-          <div class="board-item">
-            <span class="bn">Big Back</span>
-            <span class="bd"></span>
-            <span class="bp">$11</span>
+          <div class="board-entry">
+            <div class="board-item">
+              <span class="bn">Big Back</span>
+              <span class="bd"></span>
+              <span class="bp">$11</span>
+            </div>
+            <div class="board-desc">Brunch sandwich on a glazed doughnut &mdash; choice of meat, over-medium egg &amp; cheese.</div>
           </div>
-          <div class="board-item">
-            <span class="bn">WY-HOP Classic Stack</span>
-            <span class="bd"></span>
-            <span class="bp">$6</span>
+          <div class="board-entry">
+            <div class="board-item">
+              <span class="bn">WY-HOP Classic Stack</span>
+              <span class="bd"></span>
+              <span class="bp">$6</span>
+            </div>
+            <div class="board-desc">Two flapjacks with powdered sugar and honey butter. Side of syrup.</div>
           </div>
-          <div class="board-item">
-            <span class="bn">WY-HOP Apple Stack</span>
-            <span class="bd"></span>
-            <span class="bp">$12.50</span>
+          <div class="board-entry">
+            <div class="board-item">
+              <span class="bn">WY-HOP Apple Stack</span>
+              <span class="bd"></span>
+              <span class="bp">$12.50</span>
+            </div>
+            <div class="board-desc">Cheesecake spread, stewed apples, whipped cream, and graham crumbs.</div>
           </div>
-          <div class="board-item">
-            <span class="bn">Classic Burger</span>
-            <span class="bd"></span>
-            <span class="bp">$12.50</span>
+          <div class="board-entry">
+            <div class="board-item">
+              <span class="bn">Classic Burger</span>
+              <span class="bd"></span>
+              <span class="bp">$12.50</span>
+            </div>
+            <div class="board-desc">American cheese, lettuce, tomato, pickle, onion, ketchup &amp; mustard. Served with fresh-cut fries.</div>
           </div>
-          <div class="board-item">
-            <span class="bn">Bleu Sky Burger</span>
-            <span class="bd"></span>
-            <span class="bp">$17.50</span>
+          <div class="board-entry">
+            <div class="board-item">
+              <span class="bn">Bleu Sky Burger</span>
+              <span class="bd"></span>
+              <span class="bp">$17.50</span>
+            </div>
+            <div class="board-desc">Crisp bacon, blue cheese crumbles, lettuce, onion, chipotle mayo. Served with fresh-cut fries.</div>
           </div>
-          <div class="board-item">
-            <span class="bn">Aloha Burger</span>
-            <span class="bd"></span>
-            <span class="bp">$13</span>
+          <div class="board-entry">
+            <div class="board-item">
+              <span class="bn">Aloha Burger</span>
+              <span class="bd"></span>
+              <span class="bp">$13</span>
+            </div>
+            <div class="board-desc">Grilled pineapple, grilled onion, pepper jack, lettuce, teriyaki sauce. Served with fresh-cut fries.</div>
           </div>
-          <div class="board-item">
-            <span class="bn">Grilled Aloha Chicken Sandwich</span>
-            <span class="bd"></span>
-            <span class="bp">$12.75</span>
+          <div class="board-entry">
+            <div class="board-item">
+              <span class="bn">Grilled Aloha Chicken Sandwich</span>
+              <span class="bd"></span>
+              <span class="bp">$12.75</span>
+            </div>
+            <div class="board-desc">Grilled chicken with ham, grilled onion, grilled pineapple, pepper jack, lettuce. Teriyaki-glazed, on a bun.</div>
           </div>
-          <div class="board-item">
-            <span class="bn">Grilled Aloha Chicken Salad</span>
-            <span class="bd"></span>
-            <span class="bp">$11</span>
+          <div class="board-entry">
+            <div class="board-item">
+              <span class="bn">Grilled Aloha Chicken Salad</span>
+              <span class="bd"></span>
+              <span class="bp">$11</span>
+            </div>
+            <div class="board-desc">Grilled chicken, ham, pineapple, pepper jack, onion, bell pepper, chopped nuts, Asian vinaigrette.</div>
           </div>
-          <div class="board-item">
-            <span class="bn">Sioux City Tenderloin</span>
-            <span class="bd"></span>
-            <span class="bp">$12.50</span>
+          <div class="board-entry">
+            <div class="board-item">
+              <span class="bn">Sioux City Tenderloin</span>
+              <span class="bd"></span>
+              <span class="bp">$12.50</span>
+            </div>
+            <div class="board-desc">Hand-breaded pork tenderloin, deep-fried golden, on a bun with lettuce, onion, pickle. Choice of mayo, mustard, or ketchup.</div>
           </div>
         </div>
 
